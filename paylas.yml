@@ -1,0 +1,57 @@
+name: Yargıtay kararı paylaş
+
+on:
+  schedule:
+    # Pazartesi, Salı, Perşembe, Cuma — 07:00 UTC = 10:00 Türkiye saati
+    # Günleri değiştirmek için: 1=Pzt 2=Sal 3=Çar 4=Per 5=Cum 6=Cmt 0=Paz
+    - cron: "0 7 * * 1,2,4,5"
+  workflow_dispatch:        # "Run workflow" düğmesiyle elle çalıştırma
+    inputs:
+      platform:
+        description: "Yalnızca tek platform (boş = hepsi)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write           # görseli ve paylaşım geçmişini depoya kaydetmek için
+
+concurrency:
+  group: paylasim
+  cancel-in-progress: false
+
+jobs:
+  paylas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+
+      - name: Sıradaki kararı paylaş
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+          IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
+        run: |
+          if [ -n "${{ github.event.inputs.platform }}" ]; then
+            python paylas.py --platform "${{ github.event.inputs.platform }}"
+          else
+            python paylas.py
+          fi
+
+      - name: Geçmişi kaydet
+        if: always()
+        run: |
+          git config user.name "paylasim-botu"
+          git config user.email "paylasim-botu@users.noreply.github.com"
+          git add -A gecmis.json kararlar public || true
+          git diff --cached --quiet || git commit -m "Paylaşım kaydı $(date +%F)"
+          git pull --rebase && git push
