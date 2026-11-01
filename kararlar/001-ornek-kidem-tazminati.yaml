@@ -1,0 +1,31 @@
+# ÖRNEK DOSYA — Biçimi göstermek içindir. Gerçek bir kararla değiştirin.
+# Dosyalar ada göre sırayla paylaşılır (001-, 002-, 003- ...).
+
+daire: "9. Hukuk Dairesi"
+esas: "2024/1234"
+karar: "2025/5678"
+tarih: "12.03.2025"
+
+# is | ticaret | gayrimenkul | aile | miras | icra | borclar | ceza
+konu: "is"
+
+# Görselde büyük yazılacak başlık (kısa tutun: ~8-12 kelime)
+baslik: "Haklı nedenle fesheden işçi kıdem tazminatına hak kazanır"
+
+# Görselde ve gönderide yer alacak özet (2-4 cümle)
+ozet: >-
+  Ücreti düzenli olarak geç ödenen işçinin iş sözleşmesini 4857 sayılı
+  Kanun'un 24/II-e maddesine dayanarak feshetmesi haklı nedene dayanır.
+  Bu durumda işçi, ihbar tazminatına hak kazanmasa da kıdem tazminatını
+  talep edebilir.
+
+# Kararın can alıcı cümlesi — görselde tırnak içinde gösterilir (isteğe bağlı)
+alinti: >-
+  Ücretin ödeme gününden itibaren 20 gün içinde ödenmemesi, işçiye
+  sözleşmeyi haklı nedenle feshetme imkânı verir.
+
+# İsteğe bağlı ek hashtagler
+etiketler: ["#ÜcretAlacağı"]
+
+# Gönderinin yayına girmesi için siz kontrol edip true yapın
+onay: false

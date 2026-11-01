@@ -1,0 +1,59 @@
+# ─────────────────────────────────────────────────────────────
+#  Aksoy Hukuk Bürosu — Yargıtay kararı paylaşım ayarları
+# ─────────────────────────────────────────────────────────────
+
+buro:
+  ad: "AKSOY HUKUK BÜROSU"
+  alt_baslik: "Yargıtay Kararları"
+  # Görselin altında görünecek kullanıcı adı / web adresi (boş bırakılabilir)
+  imza: "@aksoyhukuk"
+
+# Paylaşım günleri ve saati GitHub Actions dosyasında ayarlanır:
+#   .github/workflows/paylas.yml  →  cron: "0 7 * * 1,2,4,5"
+#   (Pazartesi, Salı, Perşembe, Cuma — Türkiye saatiyle 10:00)
+
+# Bir karar paylaşılmadan önce YAML dosyasında `onay: true` olmalı mı?
+# Hukuki içerikte hata riskine karşı açık tutmanızı öneririm.
+onay_zorunlu: true
+
+# Hangi platformlara paylaşılsın?
+platformlar:
+  instagram: true
+  x: true
+  linkedin: true
+
+linkedin:
+  # "organization" → şirket sayfası (LinkedIn'den Community Management API onayı gerekir)
+  # "person"       → kendi kişisel profiliniz (onay gerektirmez, hemen çalışır)
+  yazar_turu: "organization"
+
+# Instagram, görseli herkese açık bir adresten çeker.
+#   "github"  → görsel bu depoya yüklenir, raw.githubusercontent.com adresi kullanılır
+#               (depo PUBLIC olmalı)
+#   "imgbb"   → görsel imgbb.com'a yüklenir (ücretsiz API anahtarı; depo private kalabilir)
+gorsel_barindirma: "github"
+
+# Kart renkleri (altın sarısı / koyu zemin)
+renkler:
+  zemin: "#14110D"       # neredeyse siyah, sıcak ton
+  zemin_ikinci: "#1F1A13"
+  altin: "#C9A227"
+  altin_acik: "#E6C766"
+  metin: "#F3EBDD"
+  metin_soluk: "#B9AE9A"
+
+# Konu → hashtag eşleşmesi (karar dosyasındaki `konu` alanına göre eklenir)
+hashtagler:
+  genel: ["#Yargıtay", "#YargıtayKararı", "#Hukuk", "#Avukat", "#AksoyHukuk"]
+  is: ["#İşHukuku", "#İşçiHakları", "#KıdemTazminatı"]
+  ticaret: ["#TicaretHukuku", "#ŞirketlerHukuku", "#TTK"]
+  gayrimenkul: ["#GayrimenkulHukuku", "#TapuİptalTescil", "#EşyaHukuku"]
+  aile: ["#AileHukuku", "#Boşanma", "#Nafaka"]
+  miras: ["#MirasHukuku", "#Tenkis", "#MuvazaaDavası"]
+  icra: ["#İcraHukuku", "#İcraİflas"]
+  borclar: ["#BorçlarHukuku", "#TBK"]
+  ceza: ["#CezaHukuku", "#CMK"]
+
+# İsteğe bağlı: ham karar metninden taslak üretmek için Claude modeli
+ai:
+  model: "claude-sonnet-5-5"
